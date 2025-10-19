@@ -1,4 +1,4 @@
-// server.js
+// server.js (LENGKAP DENGAN PERBAIKAN UNTUK KODE TERBARU ANDA)
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -7,11 +7,11 @@ const fs = require('fs');
 const piBot = require('./pi_bot_logic.js');
 
 // --- KONFIGURASI PENTING ---
-// Ganti dengan token bot Anda dari @BotFather
-const TELEGRAM_TOKEN = '8072498870:AAF36SvRq1pT3GJWCgaJO-ENvAupfCNWRho';
-// URL publik server Anda. Untuk development lokal, gunakan ngrok.
-// Contoh: 'https://your-domain.com' atau 'https://<id-ngrok>.ngrok.io'
-const WEBHOOK_URL = 'https://654ddead-5da9-4185-bc19-f5ab8fc9feda-00-s8u6sg4z6zij.pike.replit.dev';
+// Load environment variables
+require('dotenv').config();
+
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+const WEBHOOK_URL = process.env.WEBHOOK_URL || `https://${process.env.REPLIT_DEV_DOMAIN}`;
 const PORT = process.env.PORT || 5000;
 // ----------------------------
 
@@ -20,10 +20,24 @@ let config = loadConfig();
 let adminChatId = null; // ID chat admin akan disimpan di sini
 let userState = {}; // Untuk menangani alur percakapan (misal: menunggu input mnemonic)
 
+// Validate required environment variables
+if (!TELEGRAM_TOKEN) {
+    console.error('ERROR: TELEGRAM_TOKEN tidak ditemukan. Silakan atur di Secrets.');
+    process.exit(1);
+}
+
 // Inisialisasi Bot Telegram & Server Express
 const bot = new TelegramBot(TELEGRAM_TOKEN);
 const app = express();
 app.use(bodyParser.json());
+
+// --- TAMBAHAN UNTUK PINGER NETLIFY ---
+// Rute untuk halaman utama ('/').
+// Ini akan merespons ping dari Netlify dengan status 200 OK, sehingga tidak lagi 404.
+app.get('/', (req, res) => {
+    res.status(200).send('Bot aktif. Server siap menerima ping.');
+});
+// ------------------------------------
 
 // Set Webhook
 const webhookPath = `/webhook/${TELEGRAM_TOKEN}`;
@@ -184,8 +198,10 @@ bot.on('message', (msg) => {
         delete userState[msg.chat.id]; // Selesaikan state
     }
 });
+
+
 // Jalankan server
-app.listen(PORT, () => {
-    console.log(`0.0.0.0${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server berjalan di port ${PORT}`);
     console.log(`Webhook terpasang di: ${WEBHOOK_URL}${webhookPath}`);
 });
