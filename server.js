@@ -12,7 +12,7 @@ const TELEGRAM_TOKEN = '8072498870:AAF36SvRq1pT3GJWCgaJO-ENvAupfCNWRho';
 // URL publik server Anda. Untuk development lokal, gunakan ngrok.
 // Contoh: 'https://your-domain.com' atau 'https://<id-ngrok>.ngrok.io'
 const WEBHOOK_URL = 'https://webhook.zendshost.id';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 // ----------------------------
 
 const CONFIG_FILE = './config.json';
