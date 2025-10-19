@@ -186,6 +186,6 @@ bot.on('message', (msg) => {
 });
 // Jalankan server
 app.listen(PORT, () => {
-    console.log(`Server berjalan di port ${PORT}`);
+    console.log(`0.0.0.0 ${PORT}`);
     console.log(`Webhook terpasang di: ${WEBHOOK_URL}${webhookPath}`);
 });
