@@ -184,8 +184,6 @@ bot.on('message', (msg) => {
         delete userState[msg.chat.id]; // Selesaikan state
     }
 });
-
-
 // Jalankan server
 app.listen(PORT, () => {
     console.log(`Server berjalan di port ${PORT}`);
