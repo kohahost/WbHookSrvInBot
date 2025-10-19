@@ -11,7 +11,7 @@ const piBot = require('./pi_bot_logic.js');
 const TELEGRAM_TOKEN = '8072498870:AAF36SvRq1pT3GJWCgaJO-ENvAupfCNWRho';
 // URL publik server Anda. Untuk development lokal, gunakan ngrok.
 // Contoh: 'https://your-domain.com' atau 'https://<id-ngrok>.ngrok.io'
-const WEBHOOK_URL = 'https://webhook.zendshost.id';
+const WEBHOOK_URL = 'https://654ddead-5da9-4185-bc19-f5ab8fc9feda-00-s8u6sg4z6zij.pike.replit.dev';
 const PORT = process.env.PORT || 5000;
 // ----------------------------
 
